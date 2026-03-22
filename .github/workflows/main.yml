@@ -2,10 +2,9 @@ name: Auto Send Email
 
 on:
   schedule:
-    # 你的当前时间是 20:02 (ACDT/UTC+10:30)
-    # 对应 UTC 时间为 09:32
-    # 我们设定在 UTC 09:35 触发（即你的 20:05），预留几分钟修改和排队时间
-    - cron: '35 9 * * *' 
+    # 阿德莱德当前处于夏令时 (ACDT)，时区为 UTC+10:30
+    # 当地时间 20:20 对应 UTC 时间 09:50
+    - cron: '50 9 * * *' 
   workflow_dispatch: 
 
 jobs:
@@ -13,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
+      # 必须有这一步，Python 脚本才能读取到仓库里的 email.txt
       uses: actions/checkout@v3
 
     - name: Set up Python
