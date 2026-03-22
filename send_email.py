@@ -3,23 +3,37 @@ import os
 from email.mime.text import MIMEText
 from email.header import Header
 
-
+# --- 配置信息 ---
 SMTP_SERVER = "smtp.yeah.net"  
 SMTP_PORT = 465
 SENDER_EMAIL = "noreply_Yuan@yeah.net"  
 RECEIVER_EMAIL = "vincentgalen@163.com"    
 
-
 SENDER_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
+def read_email_content():
+    """读取同目录下的 email.txt 文件内容"""
+    file_path = "email.txt"
+    # 检查文件是否存在，防止程序崩溃
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            return f.read()
+    else:
+        print("⚠️ 未找到 email.txt，将使用默认内容。")
+        return "默认邮件内容：文件 email.txt 不存在。"
+
 def send_email():
-    print(f"正在尝试通过 {SENDER_EMAIL} 发送邮件...")
-    message = MIMEText("这是一封通过 GitHub Actions 定时发送的自动化邮件。", "plain", "utf-8")
+    # 提取文件内容
+    body_content = read_email_content()
     
-    # 标准格式：发件人显示名 <邮箱地址>
-    message["From"] = f"Yuan <{SENDER_EMAIL}>"
+    print(f"正在读取 email.txt 并尝试通过 {SENDER_EMAIL} 发送...")
+    
+    # 使用从文件读取的 body_content
+    message = MIMEText(body_content, "plain", "utf-8")
+    
+    message["From"] = f"noreply_Yuan <{SENDER_EMAIL}>"
     message["To"] = RECEIVER_EMAIL
-    message["Subject"] = Header("自动提醒：该开会啦！", "utf-8")
+    message["Subject"] = Header("GC edited on April 1st", "utf-8")
 
     try:
         server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
@@ -28,7 +42,7 @@ def send_email():
         server.quit()
         print("邮件发送成功！")
     except Exception as e:
-        print(f"❌ 发送失败，原因: {e}")
+        print(f"发送失败，原因: {e}")
 
 if __name__ == "__main__":
     if not SENDER_PASSWORD:
