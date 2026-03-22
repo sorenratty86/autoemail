@@ -2,8 +2,7 @@ name: Auto Send Email
 
 on:
   schedule:
-    # 阿德莱德 20:35 对应 UTC 10:05
-    - cron: '5 10 * * *'
+    - cron: '*/5 * * * *'  # 每5分钟执行一次
   workflow_dispatch: 
 
 jobs:
