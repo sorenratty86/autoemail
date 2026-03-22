@@ -1,0 +1,27 @@
+name: Auto Send Email
+
+on:
+  schedule:
+    # 注意：GitHub Actions 使用的是 UTC 时间。
+    # 比如你当前所在位置（南澳大利亚，ACDT 时区，UTC+10:30）：
+    # 如果你想在当地时间早上 08:30 发送，对应的是前一天 UTC 时间的 22:00
+    - cron: '0 22 * * *' 
+  workflow_dispatch: # 这个配置允许你在网页上手动点击按钮触发，方便测试
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Run script
+      env:
+        # 把刚才存在保险箱里的密码，传递给 Python 的环境变量
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      run: python send_email.py
