@@ -2,7 +2,7 @@ name: Auto Send Email
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 每30分钟执行一次
+    - cron: '*/50 * * * *'  # 每30分钟执行一次
   workflow_dispatch: 
 
 jobs:
