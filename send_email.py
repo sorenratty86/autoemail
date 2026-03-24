@@ -31,9 +31,9 @@ def send_email():
     # 使用从文件读取的 body_content
     message = MIMEText(body_content, "plain", "utf-8")
     
-    message["From"] = f"noreply_Yuan <{SENDER_EMAIL}>"
+    message["From"] = f"noreply <{SENDER_EMAIL}>"
     message["To"] = RECEIVER_EMAIL
-    message["Subject"] = Header("GC edited on April 1st", "utf-8")
+    message["Subject"] = Header("一切安好", "utf-8")
 
     try:
         server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
