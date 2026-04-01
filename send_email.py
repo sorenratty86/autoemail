@@ -7,7 +7,7 @@ from email.header import Header
 SMTP_SERVER = "smtp.yeah.net"  
 SMTP_PORT = 465
 SENDER_EMAIL = "noreply_Yuan@yeah.net"  
-RECEIVER_EMAIL = "vincentgalen@163.com"    
+RECEIVER_EMAIL = "gavinchen@vip.126.com"    
 
 SENDER_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
@@ -33,7 +33,7 @@ def send_email():
     
     message["From"] = f"noreply <{SENDER_EMAIL}>"
     message["To"] = RECEIVER_EMAIL
-    message["Subject"] = Header("一切安好", "utf-8")
+    message["Subject"] = Header("谈心", "utf-8")
 
     try:
         server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
