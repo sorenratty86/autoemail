@@ -24,7 +24,7 @@ def read_email_content():
 
 def send_email():
     # 提取文件内容
-    body_content = read_email_content()
+    #body_content = read_email_content()
     
     print(f"正在读取 email.txt 并尝试通过 {SENDER_EMAIL} 发送...")
     
